@@ -1,6 +1,6 @@
 CREATE TABLE ccnw.Flight (
-    f# int NOT NULL,
-    c# int NOT NULL,
+    fNo int NOT NULL,
+    cNo int NOT NULL,
     airline varchar(20) NOT NULL,
     bGate varchar(3) NOT NULL,
     bTime datetime,
@@ -8,35 +8,28 @@ CREATE TABLE ccnw.Flight (
     duration int,
     dLoc varchar(255),
     aLoc varchar(255),
-    PRIMARY KEY (f#),
+    PRIMARY KEY (fNo),
 );
 CREATE TABLE ccnw.Passenger (
-    p# int NOT NULL,
+    pNo int NOT NULL,
     isStudent boolean,
     isFreqFlyer boolean,
     isMilitary boolean,
     binHistory int,
     fName varchar(255),
     lName varchar(255),
-    PRIMARY KEY (p#)
+    PRIMARY KEY (pNo)
 );
 CREATE TABLE ccnw.Staff (
-    s# int NOT NULL,
+    sNo int NOT NULL,
+    cNo int,
     jobTitle varchar(255),
     fName varchar(255),
     lName varchar(255),
-    PRIMARY KEY (s#)
-);
-CREATE TABLE ccnw.Crew (
-    c# int NOT NULL,
-    pilotNo int,
-    coPilotNo int,
-    cabinNo int,
-    groundNo int,
-    PRIMARY KEY (c#)
+    PRIMARY KEY (sNo)
 );
 CREATE TABLE ccnw.Ticket (
-    p# int NOT NULL,
-    f# int NOT NULL,
-    PRIMARY KEY (p#),
+    pNo int NOT NULL,
+    fNo int NOT NULL,
+    PRIMARY KEY (pNo),
 );
