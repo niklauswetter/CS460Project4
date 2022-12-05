@@ -1,0 +1,1 @@
+INSERT INTO niklauswetter.timestamptest VALUES (TO_TIMESTAMP(01.01.2021:12:00:00:00, 'MM.DD.YYYY:24HH:MM:SS:FF'));

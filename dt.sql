@@ -1,0 +1,1 @@
+insert into dttest (d) values (to_date('01.03.2021:13:54:12', 'MM.DD.YYYY:HH24:MI:SS'));

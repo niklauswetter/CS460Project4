@@ -1,0 +1,1 @@
+select to_char(d,'mm/dd/yyyy hh24:mi:ss') AS DATETIME FROM dttest;
