@@ -1,13 +1,13 @@
 CREATE TABLE niklauswetter.Flight (
     fNo int NOT NULL,
     cNo int NOT NULL,
-    airline varchar(9) NOT NULL,
-    bGate varchar(2) NOT NULL,
-    bTime date,
-    dTime date,
+    airline varchar(255) NOT NULL,
+    bGate varchar(255) NOT NULL,
+    bTime TIMESTAMP,
+    dTime TIMESTAMP,
     duration int,
-    dLoc varchar(3),
-    aLoc varchar(3),
+    dLoc varchar(255),
+    aLoc varchar(255),
     PRIMARY KEY (fNo)
 );
 GRANT SELECT ON niklauswetter.Flight TO PUBLIC;
@@ -35,7 +35,6 @@ GRANT SELECT ON niklauswetter.Staff TO PUBLIC;
 
 CREATE TABLE niklauswetter.Ticket (
     pNo int NOT NULL,
-    fNo int NOT NULL,
-    PRIMARY KEY (pNo)
+    fNo int NOT NULL
 );
 GRANT SELECT ON niklauswetter.Ticket TO PUBLIC;
