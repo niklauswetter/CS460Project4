@@ -88,18 +88,74 @@ public class Prog4
                         tmpQuery = "INSERT INTO niklauswetter.Passenger VALUES (" + input + ", ";
                         System.out.println("Is this passenger a Student? (1=Yes) (0=No)");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
+                        try {
+                            int tmp = Integer.parseInt(input);
+                            switch (tmp) {
+                                case 0:
+                                    tmpQuery = tmpQuery + "0, ";
+                                    break;
+                                case 1:
+                                    tmpQuery = tmpQuery + "1, ";
+                                    break;
+                                default:
+                                    System.out.println("Invalid input. Please try again.");
+                                    continue;
+                            }
+                        } catch(Exception e) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         System.out.println("Is this passenger a Frequent Flyer? (1=Yes) (0=No)");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
+                        try {
+                            int tmp = Integer.parseInt(input);
+                            switch (tmp) {
+                                case 0:
+                                    tmpQuery = tmpQuery + "0, ";
+                                    break;
+                                case 1:
+                                    tmpQuery = tmpQuery + "1, ";
+                                    break;
+                                default:
+                                    System.out.println("Invalid input. Please try again.");
+                                    continue;
+                            }
+                        } catch(Exception e) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         System.out.println("Is this passenger part of the military? (1=Yes) (0=No)");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
+                        try {
+                            int tmp = Integer.parseInt(input);
+                            switch (tmp) {
+                                case 0:
+                                    tmpQuery = tmpQuery + "0, ";
+                                    break;
+                                case 1:
+                                    tmpQuery = tmpQuery + "1, ";
+                                    break;
+                                default:
+                                    System.out.println("Invalid input. Please try again.");
+                                    continue;
+                            }
+                        } catch(Exception e) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         System.out.println("Please enter the passenger's first name: ");
                         input = userInp.nextLine();
+                        if (input.split(" ").length > 2) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        } 
                         tmpQuery = tmpQuery + input + ", ";
                         System.out.println("Please enter the passenger's last name: ");
                         input = userInp.nextLine();
+                        if (input.split(" ").length > 2) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        } 
                         tmpQuery = tmpQuery + input + ");";
                         break;
                     } else if (input == "Staff") {
@@ -108,14 +164,51 @@ public class Prog4
                         tmpQuery = "INSERT INTO niklauswetter.Staff VALUES (" + input + ", ";
                         System.out.println("Please enter the number of staff member's crew number: ");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the staff members job title: ");
+                        try {
+                            int tmp = Integer.parseInt(input);
+                            tmpQuery = tmpQuery + tmp + ", ";
+                        } catch(Exception e) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
+                        System.out.println("Please enter the staff members job title (1: Pilot, 2:CoPilot, 3:Cabin, 4:Grounds): ");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
+                        try {
+                            int tmp = Integer.parseInt(input);
+                            switch (tmp) {
+                                case 1:
+                                    tmpQuery = tmpQuery + "Pilot, ";
+                                    break;
+                                case 2:
+                                    tmpQuery = tmpQuery + "CoPilot, ";
+                                    break;
+                                case 3:
+                                    tmpQuery = tmpQuery + "Cabin Crew, ";
+                                    break;
+                                case 4:
+                                    tmpQuery = tmpQuery + "Grounds Crew, ";
+                                    break;
+                                default:
+                                    System.out.println("Invalid input. Please try again.");
+                                    continue;
+                            }
+                        } catch(Exception e) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         System.out.println("Please enter the staff member's first name: ");
                         input = userInp.nextLine();
+                        if (input.split(" ").length > 2) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ", ";
                         System.out.println("Please enter the staff member's last name: ");
+                        input = userInp.nextLine();
+                        if (input.split(" ").length > 2) {
+                            System.out.println("Invalid input. Please try again.");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ");";
                         break;
                     }
@@ -222,7 +315,7 @@ public class Prog4
                         System.out.println("Please enter the updated staff member's crew number: ");
                         input = userInp.nextLine();
                         tmpQuery = "UPDATE niklauswetter.Staff SET cNo = " + input + ", ";
-                        System.out.println("Please enter the updated staff member's job title (1: Pilot, 2:CoPilot, 3:Cabin, 4:Grounds): ");
+                        System.out.println("Please enter the updated staff members's job title (1: Pilot, 2:CoPilot, 3:Cabin, 4:Grounds): ");
                         input = userInp.nextLine();
                         try {
                             int tmp = Integer.parseInt(input);
