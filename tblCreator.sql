@@ -1,4 +1,4 @@
-CREATE TABLE ccnw.Flight (
+CREATE TABLE niklauswetter.Flight (
     fNo int NOT NULL,
     cNo int NOT NULL,
     airline varchar(20) NOT NULL,
@@ -10,7 +10,9 @@ CREATE TABLE ccnw.Flight (
     aLoc varchar(255),
     PRIMARY KEY (fNo),
 );
-CREATE TABLE ccnw.Passenger (
+GRANT SELECT ON niklauswetter.Flight TO PUBLIC;
+
+CREATE TABLE niklauswetter.Passenger (
     pNo int NOT NULL,
     isStudent boolean,
     isFreqFlyer boolean,
@@ -19,7 +21,9 @@ CREATE TABLE ccnw.Passenger (
     lName varchar(255),
     PRIMARY KEY (pNo)
 );
-CREATE TABLE ccnw.Staff (
+GRANT SELECT ON niklauswetter.Passenger TO PUBLIC;
+
+CREATE TABLE niklauswetter.Staff (
     sNo int NOT NULL,
     cNo int,
     jobTitle varchar(255),
@@ -27,8 +31,11 @@ CREATE TABLE ccnw.Staff (
     lName varchar(255),
     PRIMARY KEY (sNo)
 );
-CREATE TABLE ccnw.Ticket (
+GRANT SELECT ON niklauswetter.Staff TO PUBLIC;
+
+CREATE TABLE niklauswetter.Ticket (
     pNo int NOT NULL,
     fNo int NOT NULL,
     PRIMARY KEY (pNo),
 );
+GRANT SELECT ON niklauswetter.Ticket TO PUBLIC;
