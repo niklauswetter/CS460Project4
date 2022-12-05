@@ -18,7 +18,11 @@ public class Prog4
                         "JOIN niklauswetter.Ticket T ON (P.pNo = T.pNo)" +
                         "JOIN niklauswetter.Flight F ON (T.fNo = F.fNo)" +
                         ";";
-        String Query2 = "";
+        String Query2 = "SELECT P.fName, P.lName " + 
+                        "FROM niklauswetter.Flight F " + 
+                        "JOIN niklauswetter.Ticket T ON (F.fNo = T.fNo)" +
+                        "JOIN niklauswetter.Passenger P ON (P.pNo = T.pNo)" +
+                        ";";;
         String Query3 = "";
         String Query4 = "";
 
@@ -213,7 +217,7 @@ public class Prog4
                         break;
                     }
                 }
-                // We now have a created delete statement, we must now execute it
+                // We now have a created insert statement, we must now execute it
                 System.out.println("Executing Query: " + tmpQuery);
                 try {
                     stmt = dbconn.createStatement();
@@ -438,7 +442,7 @@ public class Prog4
                         break;
                     }
                 }
-                // We now have a created delete statement, we must now execute it
+                // We now have a created update statement, we must now execute it
                 System.out.println("Executing Query: " + tmpQuery);
                 try {
                     stmt = dbconn.createStatement();
@@ -453,9 +457,53 @@ public class Prog4
             
             
             else if (input == "Query") {
-                System.out.println("Choose a query (1-4): ");
-                input = userInp.nextLine();
-                continue;
+                while (true) {
+                    tmpQuery = "";
+                    System.out.println("Choose a query (1-4): ");
+                    input = userInp.nextLine();
+                    try {
+                        int tmp = Integer.parseInt(input);
+                        switch (tmp) {
+                            case 1:
+                                tmpQuery = Query1;
+                                break;
+                            case 2:
+                                tmpQuery = Query2;
+                                System.out.println("Please enter a valid airline ('Delta', 'Alaska', 'American', 'Southwest'): ");
+                                input = userInp.nextLine();
+                                if (input.split(" ").length > 1) {
+                                    System.out.println("Please enter an airline not a statement.");
+                                    continue;
+                                }
+                                tmpQuery = tmpQuery + "WHERE airline = \'" + input + "\'';";
+                                try {
+                                    stmt = dbconn.createStatement();
+                                    ResultSet rs = stmt.executeQuery(tmpQuery);
+                                    if (rs != null) {
+                                        System.out.println("Query executed successfully.");
+                                        ResultSetMetaData rsmd = rs.getMetaData();
+                                        String[] colNames = new String[rsmd.getColumnCount()];
+                                        int nameIndex = 0;
+                                        for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                                            System.out.print(rsmd.getColumnName(i) + "\t");
+                                            colNames[nameIndex] = rsmd.getColumnName(i);
+                                        }
+                                        System.out.println();
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Error Evaluating Results");
+                                }
+                                break;
+                            case 3:
+
+                        }
+                        
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Please enter a valid query number.");
+                        continue;
+                    }
+                }
             } 
             
             
@@ -473,7 +521,8 @@ public class Prog4
         try {
             dbconn.close();
         } catch (Exception e) {
-            return;
+            System.out.println("Error closing connection.");
+            System.exit(-1);
         }
     }
 }
