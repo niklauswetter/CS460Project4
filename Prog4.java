@@ -22,7 +22,7 @@ public class Prog4
                         "FROM niklauswetter.Flight F " + 
                         "JOIN niklauswetter.Ticket T ON (F.fNo = T.fNo)" +
                         "JOIN niklauswetter.Passenger P ON (P.pNo = T.pNo)" +
-                        ";";;
+                        ";";
         String Query3 = "";
         String Query4 = "";
 
@@ -60,30 +60,78 @@ public class Prog4
             
             if (input == "Insert") {
                 while (true) {
-                    // TODO: FINISH Flight Insert
+                    tmpQuery = "";
                     System.out.println("Would you like to insert into Flight, Passenger, or Staff?");
                     input = userInp.nextLine();
                     if (input == "Flight") {
                         System.out.println("Please enter the flight number: ");
                         input = userInp.nextLine();
-                        tmpQuery = "INSERT INTO niklauswetter.Flight VALUES (" + input + ", ";
-                        System.out.println("Please enter the flight date: ");
+                        try {
+                            int fNo = Integer.parseInt(input);
+                            tmpQuery = "INSERT INTO niklauswetter.Flight VALUES (" + fNo + ", ";
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
+                        System.out.println("Please enter the crew number: ");
                         input = userInp.nextLine();
+                        try {
+                            int cNo = Integer.parseInt(input);
+                            tmpQuery = tmpQuery + cNo + ", ";
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
+                        System.out.println("Please enter the airline of the flight: ");
+                        input = userInp.nextLine();
+                        if (input.split(" ").length > 2) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the flight time: ");
+                        System.out.println("Please enter the boarding gate: ");
                         input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the flight origin: ");
-                        input = userInp.nextLine();
+                        if (input.split(" ").length > 1) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ", ";
                         System.out.println("Please enter the flight destination: ");
                         input = userInp.nextLine();
                         tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the flight price: ");
+                        System.out.println("Please enter the boarding time (TIMESTAMP: mm.dd.yyyy:hh:mm:ss): ");
+                        String[] inputs = input.split(".");
+                        String[] hms = inputs[3].split(":");
+                        java.sql.Timestamp bts = new Timestamp( Integer.parseInt(inputs[2]),  Integer.parseInt(inputs[0]),  Integer.parseInt(inputs[1]), Integer.parseInt(hms[0]),Integer.parseInt(hms[1]),Integer.parseInt(hms[2]),0);
+                        tmpQuery = tmpQuery + bts + ", ";
+                        System.out.println("Please enter the departure time (TIMESTAMP: mm.dd.yyyy:hh:mm:ss): ");
                         input = userInp.nextLine();
+                        inputs = input.split(".");
+                        hms = inputs[3].split(":");
+                        bts = new Timestamp( Integer.parseInt(inputs[2]),  Integer.parseInt(inputs[0]),  Integer.parseInt(inputs[1]), Integer.parseInt(hms[0]),Integer.parseInt(hms[1]),Integer.parseInt(hms[2]),0);
+                        tmpQuery = tmpQuery + bts + ", ";
+                        System.out.println("Please enter the duration of flight (Integer: Minute): ");
+                        input = userInp.nextLine();
+                        try {
+                            int duration = Integer.parseInt(input);
+                            tmpQuery = tmpQuery + duration + ", ";
+                        } catch (NumberFormatException e) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
+                        System.out.println("Please enter the departure location: ");
+                        input = userInp.nextLine();
+                        if (input.split(" ").length > 1) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the flight capacity: ");
+                        System.out.println("Please enter the arrival location: ");
                         input = userInp.nextLine();
+                        if (input.split(" ").length > 1) {
+                            System.err.println("Invalid input");
+                            continue;
+                        }
                         tmpQuery = tmpQuery + input + ");";
                         break;
                     } else if (input == "Passenger") {
