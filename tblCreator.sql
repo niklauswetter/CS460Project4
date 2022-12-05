@@ -15,7 +15,6 @@ CREATE TABLE ccnw.Passenger (
     isStudent boolean,
     isFreqFlyer boolean,
     isMilitary boolean,
-    binHistory int,
     fName varchar(255),
     lName varchar(255),
     PRIMARY KEY (pNo)
