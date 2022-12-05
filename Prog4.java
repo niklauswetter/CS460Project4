@@ -10,8 +10,8 @@ public class Prog4
         Connection dbconn = null;
         ResultSet answer = null;
         final String oracleURL = "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
-        String username = "";
-        String password = "";
+        String username = "carsonchapman";
+        String password = "a4441";
 
         String Query1 = "SELECT DISTINCT P.fName, P.lName " + 
                         "FROM niklauswetter.Passenger P " + 
@@ -58,12 +58,12 @@ public class Prog4
             String input = userInp.nextLine();
             
             
-            if (input == "Insert") {
+            if (input.equals("Insert")) {
                 while (true) {
                     tmpQuery = "";
                     System.out.println("Would you like to insert into Flight, Passenger, or Staff?");
                     input = userInp.nextLine();
-                    if (input == "Flight") {
+                    if (input.equals("Flight")) {
                         System.out.println("Please enter the flight number: ");
                         input = userInp.nextLine();
                         try {
@@ -88,53 +88,63 @@ public class Prog4
                             System.err.println("Invalid input");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ", ";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the boarding gate: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 1) {
                             System.err.println("Invalid input");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ", ";
-                        System.out.println("Please enter the flight destination: ");
-                        input = userInp.nextLine();
-                        tmpQuery = tmpQuery + input + ", ";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the boarding time (TIMESTAMP: mm.dd.yyyy:hh:mm:ss): ");
-                        String[] inputs = input.split(".");
-                        String[] hms = inputs[3].split(":");
-                        java.sql.Timestamp bts = new Timestamp( Integer.parseInt(inputs[2]),  Integer.parseInt(inputs[0]),  Integer.parseInt(inputs[1]), Integer.parseInt(hms[0]),Integer.parseInt(hms[1]),Integer.parseInt(hms[2]),0);
+                        System.out.println("Enter month:");
+                        int month = userInp.nextInt();
+                        System.out.println("Enter day:");
+                        int day = userInp.nextInt();
+                        System.out.println("Enter year:");
+                        int year = userInp.nextInt();
+                        System.out.println("Enter Hour:");
+                        int hour = userInp.nextInt();
+                        System.out.println("Enter Minute:");
+                        int minute = userInp.nextInt();
+                        System.out.println("Enter Second:");
+                        int second = userInp.nextInt();
+                        java.sql.Timestamp bts = new Timestamp( year, month, day, hour, minute, second,0);
                         tmpQuery = tmpQuery + bts + ", ";
                         System.out.println("Please enter the departure time (TIMESTAMP: mm.dd.yyyy:hh:mm:ss): ");
-                        input = userInp.nextLine();
-                        inputs = input.split(".");
-                        hms = inputs[3].split(":");
-                        bts = new Timestamp( Integer.parseInt(inputs[2]),  Integer.parseInt(inputs[0]),  Integer.parseInt(inputs[1]), Integer.parseInt(hms[0]),Integer.parseInt(hms[1]),Integer.parseInt(hms[2]),0);
+                        System.out.println("Enter month:");
+                        month = userInp.nextInt();
+                        System.out.println("Enter day:");
+                        day = userInp.nextInt();
+                        System.out.println("Enter year:");
+                        year = userInp.nextInt();
+                        System.out.println("Enter Hour:");
+                        hour = userInp.nextInt();
+                        System.out.println("Enter Minute:");
+                        minute = userInp.nextInt();
+                        System.out.println("Enter Second:");
+                        second = userInp.nextInt();
+                        bts = new Timestamp( year, month, day, hour, minute, second,0);
                         tmpQuery = tmpQuery + bts + ", ";
                         System.out.println("Please enter the duration of flight (Integer: Minute): ");
-                        input = userInp.nextLine();
-                        try {
-                            int duration = Integer.parseInt(input);
-                            tmpQuery = tmpQuery + duration + ", ";
-                        } catch (NumberFormatException e) {
-                            System.err.println("Invalid input");
-                            continue;
-                        }
+                        int duration = userInp.nextInt();
+                        tmpQuery = tmpQuery + duration + ", ";
                         System.out.println("Please enter the departure location: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 1) {
                             System.err.println("Invalid input");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ", ";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the arrival location: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 1) {
                             System.err.println("Invalid input");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ");";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ")";
                         break;
-                    } else if (input == "Passenger") {
+                    } else if (input.equals("Passenger")) {
                         System.out.println("Please enter the passenger number: ");
                         input = userInp.nextLine();
                         tmpQuery = "INSERT INTO niklauswetter.Passenger VALUES (" + input + ", ";
@@ -201,16 +211,16 @@ public class Prog4
                             System.out.println("Invalid input. Please try again.");
                             continue;
                         } 
-                        tmpQuery = tmpQuery + input + ", ";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the passenger's last name: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 2) {
                             System.out.println("Invalid input. Please try again.");
                             continue;
                         } 
-                        tmpQuery = tmpQuery + input + ");";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ")";
                         break;
-                    } else if (input == "Staff") {
+                    } else if (input.equals("Staff")) {
                         System.out.println("Please enter the staff number: ");
                         input = userInp.nextLine();
                         tmpQuery = "INSERT INTO niklauswetter.Staff VALUES (" + input + ", ";
@@ -229,16 +239,16 @@ public class Prog4
                             int tmp = Integer.parseInt(input);
                             switch (tmp) {
                                 case 1:
-                                    tmpQuery = tmpQuery + "Pilot, ";
+                                    tmpQuery = tmpQuery + "'Pilot', ";
                                     break;
                                 case 2:
-                                    tmpQuery = tmpQuery + "CoPilot, ";
+                                    tmpQuery = tmpQuery + "'CoPilot', ";
                                     break;
                                 case 3:
-                                    tmpQuery = tmpQuery + "Cabin Crew, ";
+                                    tmpQuery = tmpQuery + "'Cabin Crew', ";
                                     break;
                                 case 4:
-                                    tmpQuery = tmpQuery + "Grounds Crew, ";
+                                    tmpQuery = tmpQuery + "'Grounds Crew', ";
                                     break;
                                 default:
                                     System.out.println("Invalid input. Please try again.");
@@ -254,63 +264,64 @@ public class Prog4
                             System.out.println("Invalid input. Please try again.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ", ";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the staff member's last name: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 2) {
                             System.out.println("Invalid input. Please try again.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + input + ");";
+                        tmpQuery = tmpQuery + "\'" + input + "\'" + ")";
                         break;
                     }
                 }
                 // We now have a created insert statement, we must now execute it
-                System.out.println("Executing Query: " + tmpQuery);
                 try {
                     stmt = dbconn.createStatement();
+                    System.out.println("Executing Query: " + tmpQuery);
                     stmt.executeQuery(tmpQuery);
                     System.out.println("Query executed successfully.");
                     stmt.close();
                 } catch (Exception e) {
+                    e.printStackTrace();
                     System.out.println("error inserting into database...");
                 }
                 continue;
             } 
             
             
-            else if (input == "Delete") {
+            else if (input.equals("Delete")) {
                 while (true) {
                     System.out.println("Would you like to delete from Flight, Passenger, or Staff?");
                     input = userInp.nextLine();
-                    if (input == "Flight") {
+                    if (input.equals("Flight")) {
                         System.out.println("Please enter the flight number (Integer): ");
                         input = userInp.nextLine();
                         try {
                             int tmp = Integer.parseInt(input);
-                            tmpQuery = "DELETE FROM niklauswetter.Flight WHERE fNo = " + tmp + ";";
+                            tmpQuery = "DELETE FROM niklauswetter.Flight WHERE fNo = " + tmp + "";
                             break;
                         } catch (NumberFormatException e) {
                             System.out.println("Please enter an integer.");
                             continue;
                         }
-                    } else if (input == "Passenger") {
+                    } else if (input.equals("Passenger")) {
                         System.out.println("Please enter the passenger number (Integer): ");
                         input = userInp.nextLine();
                         try {
                             int tmp = Integer.parseInt(input);
-                            tmpQuery = "DELETE FROM niklauswetter.Passenger WHERE pNo = " + tmp + ";";
+                            tmpQuery = "DELETE FROM niklauswetter.Passenger WHERE pNo = " + tmp + "";
                             break;
                         } catch (NumberFormatException e) {
                             System.out.println("Please enter an integer.");
                             continue;
                         }
-                    } else if (input == "Staff") {
+                    } else if (input.equals("Staff")) {
                         System.out.println("Please enter the staff number (Integer): ");
                         input = userInp.nextLine();
                         try {
                             int tmp = Integer.parseInt(input);
-                            tmpQuery = "DELETE FROM niklauswetter.Staff WHERE sNo = " + tmp + ";";
+                            tmpQuery = "DELETE FROM niklauswetter.Staff WHERE sNo = " + tmp + "";
                             break;
                         } catch (NumberFormatException e) {
                             System.out.println("Please enter an integer.");
@@ -335,11 +346,11 @@ public class Prog4
             } 
             
             
-            else if (input == "Update") {
+            else if (input.equals("Update")) {
                 while (true) {
                     System.out.println("Would you like to update Flight, Passenger, or Staff?");
                     input = userInp.nextLine();
-                    if (input == "Flight") {
+                    if (input.equals("Flight")) {
                         System.out.println("Please enter the flight number (Integer): ");
                         String fNum = userInp.nextLine();
                         try {
@@ -355,7 +366,7 @@ public class Prog4
                         input = userInp.nextLine();
                         tmpQuery = tmpQuery + "airline = " + input + ", ";
                         System.out.println("Please enter the flight's origin: ");
-                    } else if (input == "Staff") {
+                    } else if (input.equals("Staff")) {
                         System.out.println("Please enter a valid staff number (integer): ");
                         String sNo = userInp.nextLine();
                         try {
@@ -398,16 +409,16 @@ public class Prog4
                             System.out.println("Please enter a name not a statement.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + "firstName = " + input + ", ";
+                        tmpQuery = tmpQuery + "firstName = " + "\'" + input + "\'" +", ";
                         System.out.println("Please enter the updated staff member's last name: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 2) {
                             System.out.println("Please enter a name not a statement.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + "lastName = " + input + " WHERE sNo = " + sNo + ";";
+                        tmpQuery = tmpQuery + "lastName = " + "\'" + input + "\'" + " WHERE sNo = " + sNo + "";
                         break;
-                    } else if (input == "Passenger") {
+                    } else if (input.equals("Passenger")) {
                         System.out.println("Please enter a valid passenger number (integer): ");
                         String pNo = userInp.nextLine();
                         try {
@@ -479,14 +490,14 @@ public class Prog4
                             System.out.println("Please enter a name not a statement.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + "firstName = " + input + ", ";
+                        tmpQuery = tmpQuery + "firstName = " + "\'" + input + "\'" + ", ";
                         System.out.println("Please enter the updated passenger's last name: ");
                         input = userInp.nextLine();
                         if (input.split(" ").length > 2) {
                             System.out.println("Please enter a name not a statement.");
                             continue;
                         }
-                        tmpQuery = tmpQuery + "lastName = " + input + " WHERE pNo = " + pNo + ";";
+                        tmpQuery = tmpQuery + "lastName = " + "\'" + input + "\'" + " WHERE pNo = " + pNo + "";
                         break;
                     }
                 }
@@ -504,7 +515,7 @@ public class Prog4
             } 
             
             
-            else if (input == "Query") {
+            else if (input.equals("Query")) {
                 while (true) {
                     tmpQuery = "";
                     System.out.println("Choose a query (1-4): ");
@@ -576,7 +587,7 @@ public class Prog4
             } 
             
             
-            else if (input == "Quit") {
+            else if (input.equals("Quit")) {
                 break;
             } 
             
