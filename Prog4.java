@@ -21,8 +21,7 @@ public class Prog4
         String Query2 = "SELECT P.fName, P.lName, p.isStudent " + 
                         "FROM niklauswetter.Flight F " + 
                         "JOIN niklauswetter.Ticket T ON (F.fNo = T.fNo)" +
-                        "JOIN niklauswetter.Passenger P ON (P.pNo = T.pNo)" +
-                        ";";
+                        "JOIN niklauswetter.Passenger P ON (P.pNo = T.pNo)";
         String Query3 = "";
         String Query4 = "";
 
