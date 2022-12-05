@@ -18,7 +18,7 @@ public class Prog4
                         "JOIN niklauswetter.Ticket T ON (P.pNo = T.pNo)" +
                         "JOIN niklauswetter.Flight F ON (T.fNo = F.fNo)" +
                         ";";
-        String Query2 = "SELECT P.fName, P.lName " + 
+        String Query2 = "SELECT P.fName, P.lName, p.isStudent " + 
                         "FROM niklauswetter.Flight F " + 
                         "JOIN niklauswetter.Ticket T ON (F.fNo = T.fNo)" +
                         "JOIN niklauswetter.Passenger P ON (P.pNo = T.pNo)" +
@@ -485,10 +485,31 @@ public class Prog4
                                         String[] colNames = new String[rsmd.getColumnCount()];
                                         int nameIndex = 0;
                                         for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                                            System.out.print(rsmd.getColumnName(i) + "\t");
-                                            colNames[nameIndex] = rsmd.getColumnName(i);
+                                            if (i == 3) {
+                                                System.out.print("Bag Count" + "\t");
+                                                colNames[nameIndex] = rsmd.getColumnName(i);
+                                            } else {
+                                                System.out.print(rsmd.getColumnName(i) + "\t");
+                                                colNames[nameIndex] = rsmd.getColumnName(i);
+                                            }
                                         }
+
                                         System.out.println();
+
+                                        while (rs.next()) {
+                                            int swt = rs.getInt(colNames[2]);
+                                            switch (swt) {
+                                                case 1:
+                                                    System.out.println(rs.getByte(colNames[0]) + "\t" + rs.getString(colNames[1]) + "3");
+                                                    break;
+                                                case 0:
+                                                    System.out.println(rs.getByte(colNames[0]) + "\t" + rs.getString(colNames[1]) + "2");
+                                                    break;
+                                                default:
+                                                    System.out.print("Error\t");
+                                                    break;
+                                            }
+                                        }
                                     }
                                 } catch (Exception e) {
                                     System.out.println("Error Evaluating Results");
