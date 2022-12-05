@@ -2,10 +2,21 @@ import java.io.*;
 import java.util.*;
 import java.sql.*;
 
+/**
+ * This program demonstrates how to use the JDBC API to Work with a created database.
+ * This program will allow the user to insert, delete and update three relations (Passenger
+ * Flight and Staff). The program should check for proper inputs to prevent security breaches.
+ * The program will also allow the user to choose from a list of 4 different queries to run.
+ * 
+ * @author: Carson Chapman
+ * @since: 2022-12-05
+ * 
+ */
 public class Prog4
 {
     public static void main(String[] args) {
 
+        // Establish IO and Database Objects...
         Scanner userInp = null;
         Connection dbconn = null;
         ResultSet answer = null;
@@ -13,6 +24,7 @@ public class Prog4
         String username = "carsonchapman";
         String password = "a4441";
 
+        // Defign the hard-coded parts to the queries...
         String Query1 = "SELECT DISTINCT P.fName, P.lName " + 
                         "FROM niklauswetter.Passenger P " + 
                         "JOIN niklauswetter.Ticket T ON (P.pNo = T.pNo)" +
@@ -49,6 +61,7 @@ public class Prog4
                 System.exit(-1);
         }
 
+        // Outer user Input Loop that will determin the operation to be performed...
         while (true) {
             Statement stmt = null;
             String tmpQuery = "";
@@ -56,7 +69,8 @@ public class Prog4
             userInp = new Scanner(System.in);
             String input = userInp.nextLine();
             
-            
+            // If operation is insert, delete, or update, the program will perform the proper
+            // user input checks and then create and execute the query...
             if (input.equals("Insert")) {
                 while (true) {
                     tmpQuery = "";
@@ -95,6 +109,8 @@ public class Prog4
                             continue;
                         }
                         tmpQuery = tmpQuery + "\'" + input + "\'" + ", ";
+
+                        // Building timestamp bottom up...
                         System.out.println("Please enter the boarding time (TIMESTAMP: mm.dd.yyyy:hh:mm:ss): ");
                         System.out.println("Enter month:");
                         int month = userInp.nextInt();
