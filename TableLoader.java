@@ -1,7 +1,12 @@
 import java.io.File;
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class TableLoader {
+
+    static final String DB_URL = "jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
+    static final String USER = "niklauswetter";
+    static final String PASS = "a0513";
 
     public static void main(String[] args){
         if(args.length != 4){
@@ -32,5 +37,7 @@ public class TableLoader {
         File staffFile = new File(staffPath);
         File passengerFile = new File(passengerPath);
         File ticketFile = new File(ticketPath);
+        int batchSize = 20;
+        Connection connection = null;
     }
 }
